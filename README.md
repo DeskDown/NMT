@@ -3,7 +3,6 @@
 Our project showcases the impressive utility of multi-parallel corpora for transfer learning in a one-to-many low-resource neural machine translation (NMT) setting.
 Training procedures are highly motivated by Raj et al. 2019 paper **Exploiting Multilingualism through Multistage Fine-Tuning for Low-Resource Neural Machine Translation**.
 
-
 ## Datasets
 
 We used ALT dataset which was introduced by **Asian Language Treebank (ALT) Project.**
@@ -27,11 +26,11 @@ For mix training purposes, we used the opus dataset (en-ja or en-zh) which was u
 
 Even when the helping target language is not one of the target languages of our concern, the multistage fine-tuning process provided 3–9 BLEU score gains over a simple one-to-one model.
 
-## Tokenizers
+## Tokenizer and Seq2Seq Models
 
-Tokenizing the low resource asian languages is also a critical task. These languages are very different in terms of their syntax and might not follow the same *space* or *punctuation* rules as other languages. On top of that, every Hugging face translation model comes with its own tokenizer, which was used during pre-training of that model. Using any other model will completely demolish the pre-training knowledge of NMT model. To overcome this hurdle, we used a *teacher* tokenizer to tokenize ALT dataset training sentences. The tokens were later saved and added to the *student* tokenizer's vocabulary. As the teacher we used *facebook/mbart-large-50-one-to-many-mmt* from HF Hub. The *student* tokenizer was always the one which was used to pretrain the desired model. 
+Tokenizing the low resource asian languages is also a critical task. These languages are very different in terms of their syntax and might not follow the same *space* or *punctuation* rules as other languages. On top of that, every Hugging face translation model comes with its own tokenizer, which was used during pre-training of that model. Using any other model will completely demolish the pre-training knowledge of NMT model. To overcome this hurdle, we used a *teacher* tokenizer to tokenize ALT dataset training sentences. The tokens were later saved and added to the *student* tokenizer's vocabulary. As the teacher we used *facebook/mbart-large-50-one-to-many-mmt* from HF models hub. The *student* tokenizer was always the one which was used to pretrain the desired model.
 
-Our implementation is available [here](./make_tokens.py)
+Our implementation for tokens generation is available [here](./make_tokens.py)
 
 ## Training
 
@@ -47,10 +46,33 @@ In our experiments we used 3 different training techniques:
 
    For each language in ALT dataset, we load the model trained in step 2 and perform purefinetuning using selected language.
 
+For further detailed training process and implementations, check [this](./Engine.ipynb) out.
+
 ## Results
+
+Our work extendsthe experiments of Raj et al. (2019) mainly on 3 different points:
+
+1. We used state-of-the-art tokenizers to tokenize Asian languages and did not used any language in its *raw*  form or *punctuation and spaces* splits.
+2. During MixTraining stage, we used **9** different languages of ALT dataset alongiside helper dataset to perform training.
+3. We included 4 new languages from ALT dataset in our experiments.
+
+
+Best performing models are available [here](https://huggingface.co/DeskDown)
+
+## Packages
+
+We recommend using a virtual environmenten to avoid compliance issues.
+
+For conda users, simply create a virtual environment by running following commands in your terminal.
+
+```
+conda create --name <env> --file nmt_env.txt
+conda activate <env>
+```
+
 
 ## Acknowledgements
 
- - [Exploiting Multilingualism through Multistage Fine-Tuning for Low-Resource Neural Machine Translation](https://aclanthology.org/D19-1146.pdf)
- - [Marian: Fast Neural Machine Translation](https://huggingface.co/docs/transformers/model_doc/marian)
- - [mBART-50 many to many multilingual machine translation](https://arxiv.org/abs/2008.00401)
+- [Exploiting Multilingualism through Multistage Fine-Tuning for Low-Resource Neural Machine Translation](https://aclanthology.org/D19-1146.pdf)
+- [Marian: Fast Neural Machine Translation](https://huggingface.co/docs/transformers/model_doc/marian)
+- [mBART-50 many to many multilingual machine translation](https://arxiv.org/abs/2008.00401)
