@@ -55,12 +55,11 @@ Our work extends the experiments of Raj et al. (2019) mainly on 3 different poin
 2. During MixTraining stage, we used **9** different languages of ALT dataset alongiside helper dataset to perform training.
 3. We included 4 new languages from ALT dataset in our experiments.
 
-
-The results for different training configurations are given in table 1. 
+The results for different training configurations are given in table 1.
 
 Best performing models are available here
 
-![Alt text](.\images\results.png)
+![Alt text](./images/results.png)
 
 ## Packages
 
