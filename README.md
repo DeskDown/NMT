@@ -11,16 +11,15 @@ The process of building ALT began with sampling about 20,000 sentences from Engl
 
 We used translation of 9 different asian languages in our work. These languages are:
 
-1. Filipino, (hi)
+1. Filipino, (fil)
 2. Hindi, (hi)
 3. Bahasa Indonesia, (id)
 4. Japanese, (ja)
 5. Khmer, (khm)
 6. Malay, (ms)
-7. Myanmar (Burmese),
+7. Myanmar (My),
 8. Thai, (th)
 9. Vietnamese, (vi)
-10. Chinese, (zh)
 
 For mix training purposes, we used the opus dataset (en-ja or en-zh) which was used to pretrain the text-to-text transformer model.
 
@@ -50,18 +49,22 @@ For further detailed training process and implementations, check [this](./Engine
 
 ## Results
 
-Our work extendsthe experiments of Raj et al. (2019) mainly on 3 different points:
+Our work extends the experiments of Raj et al. (2019) mainly on 3 different points:
 
 1. We used state-of-the-art tokenizers to tokenize Asian languages and did not used any language in its *raw*  form or *punctuation and spaces* splits.
 2. During MixTraining stage, we used **9** different languages of ALT dataset alongiside helper dataset to perform training.
 3. We included 4 new languages from ALT dataset in our experiments.
 
 
-Best performing models are available [here](https://huggingface.co/DeskDown)
+The results for different training configurations are given in table 1. 
+
+Best performing models are available here
+
+![Alt text](.\images\results.png)
 
 ## Packages
 
-We recommend using a virtual environmenten to avoid compliance issues.
+We recommend using a virtual environment to avoid compliance issues.
 
 For conda users, simply create a virtual environment by running following commands in your terminal.
 
@@ -69,7 +72,6 @@ For conda users, simply create a virtual environment by running following comman
 conda create --name <env> --file nmt_env.txt
 conda activate <env>
 ```
-
 
 ## Acknowledgements
 

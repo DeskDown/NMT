@@ -82,6 +82,12 @@ class ALTDataset:
 
         return (train_ids, test_ids, eval_ids)
 
+
+    def add_target(item):
+        item["Sent_en"] = f'2{item["lang_yy"]} {item["Sent_en"]}'
+        return item
+
+
     def get_datasets(self):
         train_ds = Dataset.from_pandas(
             ds.train_df).remove_columns("__index_level_0__")
@@ -94,7 +100,7 @@ class ALTDataset:
             "train": train_ds,
             "test": test_ds,
             "eval": eval_ds
-        })
+        }).map(add_target)
 
 
 if __name__ == '__main__':
